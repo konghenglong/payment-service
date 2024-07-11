@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 
 @Entity
-@Table(name = "TRANSACTION_DETAIL")
+@Table(name = "TRANSACTION_DETAILS")
 @Data
 @Builder
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class TransactionDetail {
     @Column(name = "REFERENCE_NUMBER")
     private String referenceNumber;
 
-    @Column(name = "STATUS")
+    @Column(name = "DATE")
     private Instant paymentDate;
 
     @Column(name = "STATUS")
