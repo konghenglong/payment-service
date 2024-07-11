@@ -1,7 +1,9 @@
 package com.kongheng.paymentService.service;
 
 import com.kongheng.paymentService.entity.TransactionDetail;
+import com.kongheng.paymentService.model.PaymentMode;
 import com.kongheng.paymentService.model.PaymentRequest;
+import com.kongheng.paymentService.model.PaymentResponse;
 import com.kongheng.paymentService.repository.TransactionDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,17 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("Transaction Completed with Id: {}", transactionDetail.getId());
 
         return transactionDetail.getId();
+    }
+
+    @Override
+    public PaymentResponse getPaymentDetailByOrderId(String orderId) {
+        TransactionDetail transactionDetail = transactionDetailRepository.findByOrderId(Long.parseLong(orderId));
+        return PaymentResponse.builder()
+            .paymentId(transactionDetail.getId())
+            .paymentMode(PaymentMode.valueOf(transactionDetail.getPaymentMode()))
+            .orderId(transactionDetail.getOrderId())
+            .status(transactionDetail.getPaymentStatus())
+            .amount(transactionDetail.getAmount())
+            .build();
     }
 }
