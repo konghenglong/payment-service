@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: payment-service
+  config:
+    import: configserver:http://localhost:9296
+
+  datasource:
+    url: jdbc:h2:mem:payment-db
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
